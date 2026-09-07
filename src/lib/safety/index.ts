@@ -11,7 +11,7 @@
 //      and the exact wording shown to a user in crisis (see resources.ts).
 //   2. This heuristic layer should be paired with a model-based classifier
 //      (bind 51 "AI Response Contract" / evidence_required field) once
-//      OPENAI_API_KEY is configured — heuristics alone will miss paraphrased
+//      GEMINI_API_KEY is configured — heuristics alone will miss paraphrased
 //      or indirect expressions of risk.
 // Per bind 71, no agent — including a future Manager Agent — may bypass or
 // weaken this layer. This module has no "override" parameter anywhere.
