@@ -75,12 +75,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ conversationId, status: "blocked", message: reason, remaining });
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     return NextResponse.json(
       {
         conversationId,
         status: "ai_not_configured",
-        message: "لایه‌ی هوش مصنوعی هنوز پیکربندی نشده (OPENAI_API_KEY تنظیم نشده).",
+        message: "لایه‌ی هوش مصنوعی هنوز پیکربندی نشده (GEMINI_API_KEY تنظیم نشده).",
         remaining,
       },
       { status: 503 }

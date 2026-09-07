@@ -1,5 +1,5 @@
 import { classifyIntake } from "@/lib/ai/agents/intake";
-import { chatText } from "@/lib/ai/openai";
+import { chatText } from "@/lib/ai/gemini";
 import { validateAiResponse } from "@/lib/safety";
 import type { AiResponseContract } from "@/lib/ai/contract";
 import { isValidContract } from "@/lib/ai/contract";
