@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
   // sent to an AI model — a blocked/escalated result short-circuits the
   // pipeline entirely; no specialist agent ever sees this message.
   const safetyResult = scanUserMessage(text);
-  await recordSafetyEvents(user.id, conversationId, safetyResult);
+  await recordSafetyEvents(user.id, conversationId ?? null, safetyResult);
 
   // Persist the user's message regardless of safety status — it's still
   // part of their own conversation history (RLS-protected, owner-only).
