@@ -7,6 +7,7 @@ interface ChatMessage {
   content: string;
   status?: string;
   evidenceRequired?: boolean;
+  sources?: { title: string; url: string; organization: string | null }[];
 }
 
 export default function ChatPage() {
@@ -62,6 +63,7 @@ export default function ChatPage() {
           content: data.message,
           status: data.status,
           evidenceRequired: data.evidenceRequired,
+          sources: data.sources,
         },
       ]);
     } catch {
@@ -99,8 +101,28 @@ export default function ChatPage() {
               {m.role === "assistant" && m.status === "escalated" && (
                 <p className="mt-2 text-xs font-medium text-red-600">⚠ وضعیت بحرانی — لطفاً با شماره‌های بالا تماس بگیرید</p>
               )}
-              {m.role === "assistant" && m.evidenceRequired && (
+              {m.role === "assistant" && m.evidenceRequired && (!m.sources || m.sources.length === 0) && (
                 <p className="mt-2 text-xs text-amber-600">این بخش هنوز مبتنی بر منبع علمی مشخص نیست</p>
+              )}
+              {m.role === "assistant" && m.sources && m.sources.length > 0 && (
+                <div className="mt-3 border-t border-slate-200 pt-2">
+                  <p className="text-xs font-medium text-slate-500">منابع علمی</p>
+                  <ul className="mt-1 space-y-1">
+                    {m.sources.map((s, si) => (
+                      <li key={si} className="text-xs">
+                        <a
+                          href={s.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-brand-600 underline hover:text-brand-700"
+                        >
+                          {s.organization ? `${s.organization} — ` : ""}
+                          {s.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </div>
           </div>

@@ -90,6 +90,19 @@ export async function POST(request: NextRequest) {
   try {
     const contract = await runManagerAgent(text);
 
+    let sources: { title: string; url: string; organization: string | null }[] = [];
+    if (contract.evidence_used.length > 0) {
+      const { data: evidenceRows } = await supabase
+        .from("evidence_items")
+        .select("title, source_url, organization")
+        .in("id", contract.evidence_used);
+      sources = (evidenceRows ?? []).map((e) => ({
+        title: e.title,
+        url: e.source_url,
+        organization: e.organization,
+      }));
+    }
+
     await supabase.from("messages").insert({
       conversation_id: conversationId,
       role: "assistant",
@@ -106,6 +119,7 @@ export async function POST(request: NextRequest) {
       status: "ok",
       message: contract.response,
       evidenceRequired: contract.evidence_required,
+      sources,
       remaining: remaining - 1,
     });
   } catch (err) {
