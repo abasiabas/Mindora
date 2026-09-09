@@ -24,12 +24,20 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      <a
-        href="/dashboard/chat"
-        className="rounded-lg bg-brand-500 px-6 py-3 text-center text-white transition hover:bg-brand-600"
-      >
-        شروع گفتگو
-      </a>
+      <div className="flex flex-col gap-3">
+        <a
+          href="/dashboard/chat"
+          className="rounded-lg bg-brand-500 px-6 py-3 text-center text-white transition hover:bg-brand-600"
+        >
+          شروع گفتگو
+        </a>
+        <a
+          href="/dashboard/assessments"
+          className="rounded-lg border border-brand-500 px-6 py-3 text-center text-brand-700 transition hover:bg-brand-50"
+        >
+          ارزیابی‌ها (PHQ-9 / GAD-7)
+        </a>
+      </div>
     </main>
   );
 }
