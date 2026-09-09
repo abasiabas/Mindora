@@ -25,7 +25,8 @@ export function scoreAssessment(
 ): { score: number; band: SeverityBand; item9Flag: boolean } {
   const score = Object.values(answers).reduce((sum, v) => sum + v, 0);
   const bands = code === "phq9" ? PHQ9_BANDS : GAD7_BANDS;
-  const band = bands.find((b) => score >= b.min && score <= b.max) ?? bands[bands.length - 1];
+  const fallbackBand = bands[bands.length - 1] as SeverityBand;
+  const band = bands.find((b) => score >= b.min && score <= b.max) ?? fallbackBand;
 
   const item9Flag = code === "phq9" && (answers["9"] ?? 0) > 0;
 
