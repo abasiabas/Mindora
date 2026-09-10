@@ -72,10 +72,10 @@ export default function LoginPage() {
           <input
             type="text"
             inputMode="numeric"
-            maxLength={6}
+            maxLength={10}
             required
             autoFocus
-            placeholder="------"
+            placeholder="کد را وارد کنید"
             value={code}
             onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
             className="rounded-md border border-slate-300 px-3 py-3 text-center text-2xl tracking-[0.5em] focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30"
@@ -85,7 +85,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            disabled={loading || code.length !== 6}
+            disabled={loading || code.length < 6}
             className="mt-2 rounded-md bg-brand-500 py-2 text-white transition hover:bg-brand-600 disabled:opacity-60"
           >
             {loading ? "در حال بررسی..." : "تأیید و ورود"}
