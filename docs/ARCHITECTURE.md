@@ -1,11 +1,11 @@
-# MINDORA — نقشه راه فازها
+# ZharfaMind — نقشه راه فازها
 
 | فاز | عنوان | وضعیت | یادداشت |
 |---|---|---|---|
 | 1 | Repository Audit | ✅ | |
 | 2 | Architecture Audit | ✅ | |
 | 3 | Security Audit | 🟡 | RLS تست شد (anon نمی‌تونه پروفایل ببینه، پلن‌های عمومی قابل‌مشاهده‌ان)؛ تست نفوذ کامل باقی مانده |
-| 4 | Database Design | ✅ | روی Supabase واقعی (`mindora`) deploy و verify شده |
+| 4 | Database Design | ✅ | روی Supabase واقعی (`zharfamind`) deploy و verify شده |
 | 4b | RLS | ✅ | تست شد؛ ۳ خطای Advisor (RLS جاافتاده روی roles/permissions) پیدا و رفع شد؛ Advisor الان تمیزه |
 | 5 | Authentication | ✅ | Email فعال؛ Google OAuth نیازمند تنظیم دستی در Supabase Dashboard |
 | 6 | Subscription / Entitlement | 🟡 | Engine + پلن‌های seed شده آماده؛ UI و ZarinPal باقی مانده |
@@ -21,15 +21,15 @@
 | 16 | Frontend / UX | 🟡 | |
 | 17 | Testing | ⬜ | |
 | 18 | Security Audit (Final) | ⬜ | |
-| 19 | Railway Deployment | ✅ | **زنده**: https://mindora-web-production-8f0b.up.railway.app |
+| 19 | Railway Deployment | ✅ | **زنده**: https://zharfamind-web-production-8f0b.up.railway.app |
 | 20 | Final QA | ⬜ | |
 
 ## زیرساخت زنده (Live Infrastructure)
 
-- **GitHub:** github.com/abasiabas/Mindora (branch `main`)
-- **Supabase:** project `mindora` (ref: `yzarfrtzpaqbwnttxber`) — ACTIVE_HEALTHY
-- **Railway:** project `mindora` → service `mindora-web` — SUCCESS
-  - Public URL: https://mindora-web-production-8f0b.up.railway.app
+- **GitHub:** github.com/abasiabas/ZharfaMind (branch `main`)
+- **Supabase:** project `zharfamind` (ref: `yzarfrtzpaqbwnttxber`) — ACTIVE_HEALTHY
+- **Railway:** project `zharfamind` → service `zharfamind-web` — SUCCESS
+  - Public URL: https://zharfamind-web-production-8f0b.up.railway.app
   - Health check: `/api/health`
 
 ## این راند چه‌کاری اضافه شد (Phase 10 — Safety Layer، فنی)

@@ -7,7 +7,7 @@ export interface IntakeClassification {
   reasoning: string;
 }
 
-const SYSTEM_PROMPT = `You are the Intake classifier for MINDORA, a psychology support platform.
+const SYSTEM_PROMPT = `You are the Intake classifier for ZharfaMind, a psychology support platform.
 Classify the user's message. Respond ONLY with JSON matching exactly:
 {"in_scope": boolean, "intent": string, "requires_evidence": boolean, "reasoning": string}
 

@@ -1,8 +1,8 @@
 {
-  "name": "mindora",
+  "name": "zharfamind",
   "version": "0.1.0",
   "private": true,
-  "description": "MINDORA — Evidence-Based AI Psychology & Psychotherapy Platform",
+  "description": "ZharfaMind — Evidence-Based AI Psychology & Psychotherapy Platform",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

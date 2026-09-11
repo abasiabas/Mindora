@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MINDORA — روانشناس جیبی",
+  title: "ZharfaMind — روانشناس جیبی",
   description: "پلتفرم پشتیبان روانشناختی مبتنی بر شواهد علمی. جایگزین روانشناس، روانپزشک یا خدمات اورژانسی نیست.",
 };
 

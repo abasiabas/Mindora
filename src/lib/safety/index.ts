@@ -1,5 +1,5 @@
 // ============================================================================
-// MINDORA Safety Layer — Phase 10 (technical scaffolding)
+// ZharfaMind Safety Layer — Phase 10 (technical scaffolding)
 // ============================================================================
 // IMPORTANT / HONEST LIMITATION:
 // This is a first-pass, keyword/heuristic-based classifier. It is a real,

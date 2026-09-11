@@ -76,7 +76,7 @@ export default function ChatPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col px-4 py-6">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-xl font-semibold text-brand-700">گفتگو با مایندورا</h1>
+        <h1 className="text-xl font-semibold text-brand-700">گفتگو با ژرفا مایند</h1>
         {remaining !== null && (
           <span className="rounded-full bg-brand-100 px-3 py-1 text-xs text-brand-700">
             {remaining} پیام باقی‌مانده

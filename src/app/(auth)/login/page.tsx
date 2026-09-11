@@ -133,7 +133,7 @@ export default function LoginPage() {
             <a href="/terms" className="text-brand-600 hover:underline">شرایط استفاده</a>{" "}
             و{" "}
             <a href="/privacy" className="text-brand-600 hover:underline">سیاست حریم خصوصی</a>{" "}
-            را می‌پذیرم و می‌دانم مایندورا جایگزین روانپزشک، روانشناس یا خدمات اورژانسی نیست.
+            را می‌پذیرم و می‌دانم ژرفا مایند جایگزین روانپزشک، روانشناس یا خدمات اورژانسی نیست.
           </span>
         </label>
 

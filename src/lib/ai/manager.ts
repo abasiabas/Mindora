@@ -6,12 +6,12 @@ import type { AiResponseContract } from "@/lib/ai/contract";
 import { isValidContract } from "@/lib/ai/contract";
 
 const OUT_OF_SCOPE_MESSAGE =
-  "مایندورا فقط می‌تونه درباره‌ی موضوعات روانشناسی، سلامت روان و روان‌درمانی صحبت کنه. اگه چیزی توی این حوزه‌ست، خوشحال می‌شم کمک کنم.";
+  "ژرفا مایند فقط می‌تونه درباره‌ی موضوعات روانشناسی، سلامت روان و روان‌درمانی صحبت کنه. اگه چیزی توی این حوزه‌ست، خوشحال می‌شم کمک کنم.";
 
 const NO_EVIDENCE_ENGINE_PREFIX =
-  "برای این موضوع خاص، منبع علمی مشخصی توی پایگاه‌داده‌ی مایندورا پیدا نکردم، پس نمی‌خوام ادعای قطعی بکنم. ولی می‌تونم بشنوم و همراهیتون کنم:\n\n";
+  "برای این موضوع خاص، منبع علمی مشخصی توی پایگاه‌داده‌ی ژرفا مایند پیدا نکردم، پس نمی‌خوام ادعای قطعی بکنم. ولی می‌تونم بشنوم و همراهیتون کنم:\n\n";
 
-const GROUNDED_SYSTEM_PROMPT = `You are MINDORA, a warm, evidence-conscious
+const GROUNDED_SYSTEM_PROMPT = `You are ZharfaMind, a warm, evidence-conscious
 psychological support companion. You are NOT a psychologist, psychiatrist, or
 doctor, and you never claim to be. You have been given verified evidence
 excerpts below — use ONLY these to ground any factual/clinical claim. Rules
@@ -28,7 +28,7 @@ that override everything else:
 EVIDENCE:
 {{EVIDENCE}}`;
 
-const UNGROUNDED_SYSTEM_PROMPT = `You are MINDORA, a warm, evidence-conscious
+const UNGROUNDED_SYSTEM_PROMPT = `You are ZharfaMind, a warm, evidence-conscious
 psychological support companion. You are NOT a psychologist, psychiatrist, or
 doctor, and you never claim to be. Rules that override everything else:
 - NEVER suggest, name, or discuss medication, dosage, or prescriptions.
