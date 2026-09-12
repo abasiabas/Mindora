@@ -85,7 +85,9 @@ export function scanUserMessage(text: string): SafetyCheckResult {
   if (matchesAny(text, OUT_OF_SCOPE_HINTS)) events.push({ type: "out_of_scope", severity: "low" });
 
   const hasCritical = events.some((e) => e.severity === "critical");
-  const hasBlocking = events.some((e) => e.type === "medication_request" || e.type === "suicide_risk" || e.type === "self_harm");
+  const hasBlocking = events.some((e) =>
+    e.type === "medication_request" || e.type === "suicide_risk" || e.type === "self_harm" || e.type === "abuse"
+  );
 
   let status: SafetyCheckResult["status"] = "ok";
   if (hasCritical) status = "escalated";
