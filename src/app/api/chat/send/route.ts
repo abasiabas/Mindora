@@ -4,6 +4,7 @@ import { canSendMessage } from "@/lib/entitlements";
 import { scanUserMessage, recordSafetyEvents } from "@/lib/safety";
 import { formatCrisisMessage } from "@/lib/safety/resources";
 import { runManagerAgent } from "@/lib/ai/manager";
+import { llmSafetyCheck } from "@/lib/safety/llm-check";
 
 export async function POST(request: NextRequest) {
   const supabase = createClient();
@@ -40,7 +41,22 @@ export async function POST(request: NextRequest) {
     conversationId = conv.id;
   }
 
-  const safetyResult = scanUserMessage(text);
+  let safetyResult = scanUserMessage(text);
+
+  // Second safety layer (LLM-based): the keyword heuristic above can miss
+  // indirect or metaphorical crisis language. Runs only when the heuristic
+  // found nothing (cost control, بند ۳۶) and fails OPEN on any error —
+  // never escalates on an LLM/parsing failure, only on an explicit true.
+  if (safetyResult.status === "ok") {
+    const llmFlag = await llmSafetyCheck(text).catch(() => ({ crisis: false as const }));
+    if (llmFlag.crisis) {
+      safetyResult = {
+        status: "escalated",
+        events: [...safetyResult.events, { type: "suicide_risk", severity: "critical" }],
+      };
+    }
+  }
+
   await recordSafetyEvents(user.id, conversationId ?? null, safetyResult);
 
   await supabase.from("messages").insert({
