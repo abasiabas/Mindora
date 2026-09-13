@@ -2,8 +2,27 @@ import { classifyIntake } from "@/lib/ai/agents/intake";
 import { chatText } from "@/lib/ai/gemini";
 import { validateAiResponse } from "@/lib/safety";
 import { retrieveEvidence } from "@/lib/evidence/retrieve";
+import type { EvidenceMatch } from "@/lib/evidence/retrieve";
 import type { AiResponseContract } from "@/lib/ai/contract";
 import { isValidContract } from "@/lib/ai/contract";
+
+// Confidence reflects evidence QUALITY and AGREEMENT, not just presence/absence
+// (بند ۵۲: evidence quality, relevance, source authority, recency, agreement).
+function tierWeight(level: string | null): number {
+  if (!level) return 0.5;
+  if (level.includes("1")) return 1.0;
+  if (level.includes("2")) return 0.75;
+  if (level.includes("3")) return 0.5;
+  return 0.5;
+}
+
+function computeConfidence(matches: EvidenceMatch[], requiresEvidence: boolean): number {
+  if (matches.length === 0) return requiresEvidence ? 0.4 : 0.7;
+  const avgTier = matches.reduce((sum, m) => sum + tierWeight(m.evidence_level), 0) / matches.length;
+  const agreementBonus = Math.min(matches.length - 1, 2) * 0.03;
+  const confidence = 0.55 + avgTier * 0.35 + agreementBonus;
+  return Math.min(Math.round(confidence * 100) / 100, 0.95);
+}
 
 const OUT_OF_SCOPE_MESSAGE =
   "ژرفا مایند فقط می‌تونه درباره‌ی موضوعات روانشناسی، سلامت روان و روان‌درمانی صحبت کنه. اگه چیزی توی این حوزه‌ست، خوشحال می‌شم کمک کنم.";
@@ -80,9 +99,9 @@ export async function runManagerAgent(userMessage: string): Promise<AiResponseCo
     intent: intake.intent,
     evidence_required: intake.requires_evidence,
     evidence_used: evidenceMatches.map((e) => e.id),
-    safety_status: "ok",
+    safety_status: outputCheck.safe ? "ok" : "blocked",
     medication_detected: !outputCheck.safe,
-    confidence: hasEvidence ? 0.85 : intake.requires_evidence ? 0.4 : 0.7,
+    confidence: computeConfidence(evidenceMatches, intake.requires_evidence),
     escalation_required: false,
   };
 

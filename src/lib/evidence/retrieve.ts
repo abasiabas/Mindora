@@ -32,6 +32,7 @@ export async function retrieveEvidence(userMessage: string): Promise<EvidenceMat
     .from("evidence_items")
     .select("id, title, organization, source_url, evidence_level, summary")
     .in("topic", topics)
+    .order("evidence_level", { ascending: true, nullsFirst: false })
     .limit(3);
 
   if (error || !data) return [];
