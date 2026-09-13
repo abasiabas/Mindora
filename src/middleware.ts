@@ -2,8 +2,13 @@
 // authenticated routes. Runs before any page/route handler.
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/profile", "/assessments", "/settings", "/admin", "/organization"];
+const STAFF_ONLY_PREFIXES = ["/admin"];
+const ORG_ACCESS_PREFIXES = ["/organization"];
+const STAFF_ROLES = ["OWNER", "ADMIN", "SUPPORT"];
+const ORG_ACCESS_ROLES = ["OWNER", "ADMIN", "SUPPORT", "ORGANIZATION_MANAGER"];
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request: { headers: request.headers } });
@@ -36,6 +41,24 @@ export async function middleware(request: NextRequest) {
     const redirectUrl = new URL("/login", request.url);
     redirectUrl.searchParams.set("redirectedFrom", request.nextUrl.pathname);
     return NextResponse.redirect(redirectUrl);
+  }
+
+  const needsStaff = STAFF_ONLY_PREFIXES.some((p) => request.nextUrl.pathname.startsWith(p));
+  const needsOrgAccess = ORG_ACCESS_PREFIXES.some((p) => request.nextUrl.pathname.startsWith(p));
+
+  if (user && (needsStaff || needsOrgAccess)) {
+    const admin = createAdminClient();
+    const { data: roleRows } = await admin
+      .from("user_roles")
+      .select("roles(name)")
+      .eq("user_id", user.id);
+    const roleNames = (roleRows ?? []).map((r: any) => r.roles?.name).filter(Boolean);
+    const requiredRoles = needsStaff ? STAFF_ROLES : ORG_ACCESS_ROLES;
+    const authorized = roleNames.some((name: string) => requiredRoles.includes(name));
+
+    if (!authorized) {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
   }
 
   return response;
