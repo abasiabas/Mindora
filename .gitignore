@@ -27,3 +27,4 @@ supabase/.temp
 # IDE
 .vscode/
 .idea/
+*.zip
