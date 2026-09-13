@@ -63,8 +63,11 @@ export async function POST(request: NextRequest) {
   }
 
   if (safetyResult.status === "blocked") {
-    const reason = safetyResult.events.some((e) => e.type === "medication_request")
+    const eventTypes = safetyResult.events.map((e) => e.type);
+    const reason = eventTypes.includes("medication_request")
       ? "ژرفا مایند نمی‌تونه درباره‌ی نوع یا دوز دارو نظر بده — این موضوع فقط با پزشک یا روان‌پزشک شما قابل بررسیه. اگه بخواید می‌تونم درباره‌ی راهکارهای غیردارویی مبتنی بر شواهد صحبت کنیم."
+      : eventTypes.includes("self_harm") || eventTypes.includes("abuse")
+      ? formatCrisisMessage()
       : "ژرفا مایند فقط می‌تونه درباره‌ی موضوعات روانشناسی و روان‌درمانی صحبت کنه.";
     await supabase.from("messages").insert({
       conversation_id: conversationId,
