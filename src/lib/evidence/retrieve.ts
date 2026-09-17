@@ -14,6 +14,9 @@ const TOPIC_KEYWORDS: Record<string, string[]> = {
   depression: ["افسرده", "افسردگی", "depress"],
   anxiety: ["اضطراب", "نگرانی", "anxiety", "anxious"],
   cbt: ["رفتاردرمانی", "شناخت درمانی", "cbt", "cognitive behavioral"],
+  domestic_violence: ["خشونت خانگی", "کتک", "تهدید همسر", "domestic violence", "abuse", "coercive control"],
+  couples_therapy: ["زوج درمانی", "مشاوره زوج", "رابطه با همسر", "couples therapy", "marriage counseling"],
+  talking_therapies: ["گفتاردرمانی", "رواندرمانی", "talking therapy", "counselling", "psychotherapy"],
 };
 
 function matchTopics(query: string): string[] {
