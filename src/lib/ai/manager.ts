@@ -5,6 +5,7 @@ import { retrieveEvidence } from "@/lib/evidence/retrieve";
 import type { EvidenceMatch } from "@/lib/evidence/retrieve";
 import type { AiResponseContract } from "@/lib/ai/contract";
 import { isValidContract } from "@/lib/ai/contract";
+import { checkClarificationNeed } from "@/lib/ai/agents/question";
 
 // Confidence reflects evidence QUALITY and AGREEMENT, not just presence/absence
 // (بند ۵۲: evidence quality, relevance, source authority, recency, agreement).
@@ -59,13 +60,30 @@ doctor, and you never claim to be. Rules that override everything else:
 - Respond in the same language the user wrote in (default Persian/Farsi).
 - Keep responses concise and warm — a few sentences, not an essay.`;
 
-export async function runManagerAgent(userMessage: string): Promise<AiResponseContract> {
+export async function runManagerAgent(
+  userMessage: string,
+  history: { role: "user" | "assistant"; content: string }[] = []
+): Promise<AiResponseContract> {
   const intake = await classifyIntake(userMessage);
 
   if (!intake.in_scope) {
     return {
       response: OUT_OF_SCOPE_MESSAGE,
       intent: "out_of_scope",
+      evidence_required: false,
+      evidence_used: [],
+      safety_status: "ok",
+      medication_detected: false,
+      confidence: 1,
+      escalation_required: false,
+    };
+  }
+
+  const clarification = await checkClarificationNeed(history, userMessage, intake);
+  if (clarification.needs_clarification && clarification.question) {
+    return {
+      response: clarification.question,
+      intent: intake.intent,
       evidence_required: false,
       evidence_used: [],
       safety_status: "ok",
