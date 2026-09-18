@@ -107,7 +107,19 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const contract = await runManagerAgent(text);
+    const { data: historyRows } = await supabase
+      .from("messages")
+      .select("role, content")
+      .eq("conversation_id", conversationId)
+      .order("created_at", { ascending: true });
+
+    const history = (historyRows ?? [])
+      .slice(0, -1) // drop the current user message just inserted above
+      .filter((m): m is { role: "user" | "assistant"; content: string } =>
+        m.role === "user" || m.role === "assistant"
+      );
+
+    const contract = await runManagerAgent(text, history);
 
     let sources: { title: string; url: string; organization: string | null }[] = [];
     if (contract.evidence_used.length > 0) {
