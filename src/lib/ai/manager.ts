@@ -1,5 +1,5 @@
 import { classifyIntake } from "@/lib/ai/agents/intake";
-import { chatText } from "@/lib/ai/gemini";
+import { chatText } from "@/lib/ai/deepseek";
 import { validateAiResponse } from "@/lib/safety";
 import { retrieveEvidence } from "@/lib/evidence/retrieve";
 import type { EvidenceMatch } from "@/lib/evidence/retrieve";

@@ -1,4 +1,4 @@
-import { chatJSON } from "@/lib/ai/gemini";
+import { chatJSON } from "@/lib/ai/deepseek";
 import type { IntakeClassification } from "@/lib/ai/agents/intake";
 
 export interface ClarificationCheck {

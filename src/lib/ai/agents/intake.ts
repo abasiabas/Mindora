@@ -1,4 +1,4 @@
-import { chatJSON } from "@/lib/ai/gemini";
+import { chatJSON } from "@/lib/ai/deepseek";
 
 export interface IntakeClassification {
   in_scope: boolean;
