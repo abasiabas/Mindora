@@ -48,10 +48,11 @@ export async function middleware(request: NextRequest) {
 
   if (user && (needsStaff || needsOrgAccess)) {
     const admin = createAdminClient();
-    const { data: roleRows } = await admin
+    const { data: roleRows, error: roleErr } = await admin
       .from("user_roles")
       .select("roles(name)")
       .eq("user_id", user.id);
+    console.error("[middleware-debug] role check", { userId: user.id, path: request.nextUrl.pathname, roleErr, roleRows });
     const roleNames = (roleRows ?? []).map((r: any) => r.roles?.name).filter(Boolean);
     const requiredRoles = needsStaff ? STAFF_ROLES : ORG_ACCESS_ROLES;
     const authorized = roleNames.some((name: string) => requiredRoles.includes(name));
