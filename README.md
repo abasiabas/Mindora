@@ -69,3 +69,5 @@ src/
 supabase/migrations/    → schema + RLS، به ترتیب اجرا شوند
 docs/ARCHITECTURE.md    → نقشه راه فازها و تصمیمات معماری
 ```
+
+
