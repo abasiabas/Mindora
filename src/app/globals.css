@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --bg-primary: #050a1a;
+  --bg-secondary: #081226;
+  --electric-blue: #00b4ff;
+  --cyan: #008cff;
+  --orange: #ff8c1a;
+  --gold: #ffb84a;
+  --text-primary: #f2f8ff;
+  --text-secondary: rgba(220, 235, 245, 0.7);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+::selection {
+  background-color: rgba(0, 180, 255, 0.35);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
