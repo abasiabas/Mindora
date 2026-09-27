@@ -28,3 +28,6 @@ supabase/.temp
 .vscode/
 .idea/
 *.zip
+
+# typescript
+*.tsbuildinfo
