@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import NeuralField from "../components/neural/NeuralField";
 
 export const metadata: Metadata = {
   title: "ZharfaMind — روان‌شناس هوشمند",
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body className="min-h-screen bg-background-primary font-sans text-ink-primary antialiased">
+        <NeuralField />
         {children}
       </body>
     </html>

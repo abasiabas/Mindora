@@ -1,11 +1,8 @@
 import Link from "next/link";
-import NeuralField from "../components/neural/NeuralField";
 
 export default function HomePage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-background-primary text-ink-primary">
-      <NeuralField />
-
       <header className="relative z-10 flex items-center justify-between px-6 py-6 md:px-12">
         <span className="text-lg font-bold tracking-wide">
           <span className="text-brand-blue">ظرفا</span>{" "}
